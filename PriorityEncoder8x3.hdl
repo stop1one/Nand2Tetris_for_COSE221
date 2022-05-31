@@ -1,0 +1,20 @@
+CHIP PriorityEncoder8x3{
+    IN d0, d1, d2, d3, d4, d5, d6, d7;
+    OUT b0, b1, b2;
+
+    PARTS:
+    Or4(a=d7, b=d6, c=d5, d=d4, out=b2);
+
+    Not(in=d4, out=notd4);
+    Not(in=d5, out=notd5);
+    And4(a=notd5, b=notd4, c=d3, d=d3, out=notd5notd4d3);
+    And4(a=notd5, b=notd4, c=d2, d=d2, out=notd5notd4d2);
+    Or4(a=d7, b=d6, c=notd5notd4d3, d=notd5notd4d2, out=b1);
+
+    Not(in=d6, out=notd6);
+    Not(in=d2, out=notd2);
+    And(a=notd6, b=d5, out=notd6d5);
+    And4(a=notd6, b=notd4, c=d3, d=d3, out=notd6notd4d3);
+    And4(a=notd6, b=notd4, c=notd2, d=d1, out=notd6notd4notd2d1);
+    Or4(a=d7, b=notd6d5, c=notd6notd4d3, d=notd6notd4notd2d1, out=b0);
+}
