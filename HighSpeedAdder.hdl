@@ -1,0 +1,37 @@
+CHIP HighSpeedAdder{
+    IN a[4], b[4], c;
+    OUT s[4], carry;
+    //p[4], g[4]; //p:propagate, g:generate
+
+    PARTS:
+    //1 bit
+    //PFA
+    And(a=a[0], b=b[0], out=g0);
+    Xor(a=a[0], b=b[0], out=p0);
+    Xor(a=p0, b=c, out=s[0]);
+
+    //carry lookahead logic
+    And(a=p0, b=c, out=p0c0);
+    Or(a=g0, b=p0c0, out=c1);
+
+    //2 bit
+    And(a=a[1], b=b[1], out=g1);
+    Xor(a=a[1], b=b[1], out=p1);
+    Xor(a=p1, b=c1, out=s[1]);
+    And(a=p1, b=c1, out=p1c1);
+    Or(a=g1, b=p1c1, out=c2);
+
+    //3 bit
+    And(a=a[2], b=b[2], out=g2);
+    Xor(a=a[2], b=b[2], out=p2);
+    Xor(a=p2, b=c2, out=s[2]);
+    And(a=p2, b=c2, out=p2c2);
+    Or(a=g2, b=p2c2, out=c3);
+
+    //4 bit
+    And(a=a[3], b=b[3], out=g3);
+    Xor(a=a[3], b=b[3], out=p3);
+    Xor(a=p3, b=c3, out=s[3]);
+    And(a=p3, b=c3, out=p3c3);
+    Or(a=g3, b=p3c3, out=carry);
+}
