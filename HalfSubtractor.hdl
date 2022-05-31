@@ -1,6 +1,6 @@
-CHIP HalfSubstractor {
+CHIP HalfSubtractor {
     IN a, b;
-    OUT diff, k;
+    OUT diff, k; //diff:difference, k:borrow
     
     PARTS:
     Xor(a=a, b=b, out=diff);

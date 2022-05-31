@@ -1,9 +1,0 @@
-CHIP FullSubstractor{
-    IN a, b, ki;
-    OUT diff, k0;
-
-    PARTS:
-    HalfSubstractor(a=a, b=b, diff=d, k=k1);
-    HalfSubstractor(a=d, b=ki, diff=diff, k=k2);
-    Or(a=k1, b=k2, out=k0);
-}
