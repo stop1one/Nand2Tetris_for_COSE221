@@ -1,0 +1,13 @@
+CHIP Multiplier2x2{
+    IN a[2], b[2];
+    OUT p[4];
+
+    PARTS:
+    And(a=a[0], b=b[0], out=p[0]);
+    And(a=a[0], b=b[1], out=a0b1);
+    And(a=a[1], b=b[0], out=a1b0);
+    HalfAdder(a=a0b1, b=a1b0, sum=p[1], carry=c);
+    And(a=a[1], b=b[1], out=a1b1);
+    HalfAdder(a=a1b1, b=c, sum=p[2], carry=p[3]);
+
+}

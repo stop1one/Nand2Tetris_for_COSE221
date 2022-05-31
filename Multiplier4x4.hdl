@@ -1,0 +1,15 @@
+CHIP Multiplier4x4{
+    IN a[4], b[4];
+    OUT p[8];
+
+    PARTS:
+    //n means next, nn means next of next ...
+    Multiplier2x2(a=a[0..1], b=b[0..1], p[0..1]=p[0..1], p[2..3]=na01);
+    Multiplier2x2(a=a[2..3], b=b[0..1], p=nb);
+    Multiplier2x2(a=a[0..1], b=b[2..3], p=nnb);
+    Multiplier2x2(a=a[2..3], b=b[2..3], p=nnnb);
+
+    FullAdder4bit(a[0..1]=na01, b=nb, s=nna, carry=nnc);
+    FullAdder4bit(a=nna, b=nnb, c=nnc, s[0..1]=p[2..3], s[2..3]=nnna, carry=nnnc);
+    FullAdder4bit(a[0..1]=nnna, b=nnnb, c=nnnc, s=p[4..7], carry=carry);
+}
