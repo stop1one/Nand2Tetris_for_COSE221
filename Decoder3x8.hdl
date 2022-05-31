@@ -1,0 +1,18 @@
+CHIP Decoder3x8{
+    IN a, b, c, e; //e:enable
+    OUT y0, y1, y2, y3, y4, y5, y6, y7;
+
+    PARTS:
+    Not(in=a, out=nota);
+    Not(in=b, out=notb);
+    Not(in=c, out=notc);
+    
+    And4(a=notc, b=notb, c=nota, d=e, out=y0);
+    And4(a=notc, b=notb, c=a, d=e, out=y1);
+    And4(a=notc, b=b, c=nota, d=e, out=y2);
+    And4(a=notc, b=b, c=a, d=e, out=y3);
+    And4(a=c, b=notb, c=nota, d=e, out=y4);
+    And4(a=c, b=notb, c=a, d=e, out=y5);
+    And4(a=c, b=b, c=nota, d=e, out=y6);
+    And4(a=c, b=b, c=a, d=e, out=y7);
+}
