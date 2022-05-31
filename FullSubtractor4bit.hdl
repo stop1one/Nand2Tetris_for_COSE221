@@ -1,0 +1,10 @@
+CHIP FullSubtractor4bit{
+    IN a[4], b[4], k0;
+    OUT diff[4], k4;
+
+    PARTS:
+    FullSubtractor(a=a[0], b=b[0], ki=k0, diff=diff[0], k=k1);
+    FullSubtractor(a=a[1], b=b[1], ki=k1, diff=diff[1], k=k2);
+    FullSubtractor(a=a[2], b=b[2], ki=k2, diff=diff[2], k=k3);
+    FullSubtractor(a=a[3], b=b[3], ki=k3, diff=diff[3], k=k4);
+}
