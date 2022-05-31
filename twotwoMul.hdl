@@ -1,0 +1,13 @@
+CHIP twotwoMul{
+    IN a0, a1, b0, b1;
+    OUT p3, p2, p1, p0;
+
+    PARTS:
+    And(a=a0, b=b0, out=p0);
+    And(a=a0, b=b1, out=a0b1);
+    And(a=a1, b=b0, out=a1b0);
+    HalfAdder(a=a0b1, b=a1b0, sum=p1, carry=c);
+    And(a=a1, b=b1, out=a1b1);
+    HalfAdder(a=a1b1, b=c, sum=p2, carry=p3);
+
+}

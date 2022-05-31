@@ -1,0 +1,14 @@
+CHIP fourMul{
+    IN a0, a1, a2, a3, b0, b1, b2, b3;
+    OUT p0, p1, p2, p3, p4, p5, p6, p7;
+
+    PARTS:
+    twotwoMul(a0=a0, a1=a1, b0=b0, b1=b1, p0=p0, p1=p1, p2=na0, p3=na1);
+    twotwoMul(a0=a2, a1=a3, b0=b0, b1=b1, p0=nb0, p1=nb1, p2=nb2, p3=nb3);
+    twotwoMul(a0=a0, a1=a1, b0=b2, b1=b3, p0=nnb0, p1=nnb1, p2=nnb2, p3=nnb3);
+    twotwoMul(a0=a0, a1=a1, b0=b0, b1=b1, p0=nnnb0, p1=nnnb1, p2=nnnb2, p3=nnnb3);
+
+    fourAdder(a0=na0, a1=na1, b0=nb0, b1=nb1, b2=nb2, b3=nb3, s0=nna0, s1=nna1, s2=nna2, s3=nna3, carry=nnc);
+    fourAdder(a0=nna0, a1=nna1, a2=nna2, a3=nna3, b0=nnb0, b1=nnb1, b2=nnb2, b3=nnb3, c=nnc, s0=p2, s1=p3, s2=nnna0, s3=nnna1, carry=nnnc);
+    fourAdder(a0=nnna0, a1=nnna1, b0=nnnb0, b1=nnnb1, b2=nnnb2, b3=nnnb3, c=nnnc, s0=p4, s1=p5, s2=p6, s3=p7, carry=carry);
+}
