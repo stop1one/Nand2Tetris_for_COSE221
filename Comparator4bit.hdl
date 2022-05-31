@@ -1,0 +1,50 @@
+CHIP Comparator4bit{
+    IN a[4], b[4];
+    OUT AGBO, ALBO, AEBO;
+    //AGBO: A Greater than B Output
+    //ALBO: A Less than B Output
+    //AEBO: A Equal than B Output
+
+    PARTS:
+    Not(in=a[3], out=nota3);
+    Not(in=b[3], out=notb3);
+    And(a=nota3, b=b[3], out=Nota3Andb3);
+    And(a=a[3], b=notb3, out=a3AndNotb3);
+    Or(a=Nota3Andb3, b=a3AndNotb3, out=Orab3);
+    Not(in=Orab3, out=Norab3);
+
+    Not(in=a[2], out=nota2);
+    Not(in=b[2], out=notb2);
+    And(a=nota2, b=b[2], out=Nota2Andb2);
+    And(a=a[2], b=notb2, out=a2AndNotb2);
+    Or(a=Nota2Andb2, b=a2AndNotb2, out=Orab2);
+    Not(in=Orab2, out=Norab2);
+
+    Not(in=a[1], out=nota1);
+    Not(in=b[1], out=notb1);
+    And(a=nota1, b=b[1], out=Nota1Andb1);
+    And(a=a[1], b=notb1, out=a1AndNotb1);
+    Or(a=Nota1Andb1, b=a1AndNotb1, out=Orab1);
+    Not(in=Orab1, out=Norab1);
+
+    Not(in=a[0], out=nota0);
+    Not(in=b[0], out=notb0);
+    And(a=nota0, b=b[0], out=Nota0Andb0);
+    And(a=a[0], b=notb0, out=a0AndNotb0);
+    Or(a=Nota0Andb0, b=a0AndNotb0, out=Orab0);
+    Not(in=Orab0, out=Norab0);
+
+    //AEBO
+    And4(a=Norab3, b=Norab2, c=Norab1, d=Norab0, out=AEBO);
+    //ALBO
+    And(a=Norab3, b=Nota2Andb2, out=L32);
+    And4(a=Norab3, b=Norab2, c=Nota1Andb1, d=Nota1Andb1, out=L321);
+    And4(a=Norab3, b=Norab2, c=Norab1, d=Nota0Andb0, out=L3210);
+    Or4(a=Nota3Andb3, b=L32, c=L321, d=L3210, out=ALBO);
+
+    //AGBO
+    And(a=Norab3, b=a2AndNotb2, out=G32);
+    And4(a=Norab3, b=Norab2, c=a1AndNotb1, d=a1AndNotb1, out=G321);
+    And4(a=Norab3, b=Norab2, c=Norab1, d=a0AndNotb0, out=G3210);
+    Or4(a=a3AndNotb3, b=G32, c=G321, d=G3210, out=AGBO);
+}

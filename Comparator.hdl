@@ -1,0 +1,13 @@
+CHIP Comparator{
+    IN a, b;
+    OUT f1, f2, f3, f4;
+
+    PARTS:
+    Xor(a=a, b=b, out=aXorb);
+    Not(in=aXorb, out=f1);
+    Xor(a=a, b=b, out=f2);
+    Not(in=b, out=notb);
+    And(a=a, b=notb, out=f3);
+    Not(in=a, out=nota);
+    And(a=nota, b=b, out=f4);
+}
