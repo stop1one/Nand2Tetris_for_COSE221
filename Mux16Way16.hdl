@@ -1,0 +1,11 @@
+CHIP Mux16Way16{
+    IN d0[16], d1[16], d2[16], d3[16], d4[16], d5[16], d6[16], d7[16], d8[16], d9[16], d10[16], d11[16], d12[16], d13[16], d14[16], d15[16], sel[4];
+    OUT out[16];    
+
+    PARTS:
+    Mux4Way16(a=d0, b=d1, c=d2, d=d3, sel=sel[0..1], out=d0123);
+    Mux4Way16(a=d4, b=d5, c=d6, d=d7, sel=sel[0..1], out=d4567);
+    Mux4Way16(a=d8, b=d9, c=d10, d=d11, sel=sel[0..1], out=d891011);
+    Mux4Way16(a=d12, b=d13, c=d14, d=d15, sel=sel[0..1], out=d12131415);
+    Mux4Way16(a=d0123, b=d4567, c=d891011, d=d12131415, sel=sel[2..3], out=out);
+}
